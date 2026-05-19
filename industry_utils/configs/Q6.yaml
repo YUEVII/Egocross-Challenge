@@ -1,0 +1,56 @@
+# Industry / ENIGMA config: Q6
+# Q6 = object spatial localization
+
+dataset: "ENIGMA"
+repo_root: null
+
+paths:
+  dataset_json: testset/egocross_testbed_imgs.json
+  data_root: testset
+
+model:
+  use_sft: false
+  path_base: ckpts/base_model
+  path_sft_local: ckpts/industry
+
+device: cuda:1
+
+inference:
+  max_frames: 10
+  effective_sampling_fps: 0.5
+  max_new_tokens: 64
+  dtype: auto
+  allow_remote_model: false
+
+question_types:
+  action_temporal_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: temporal_option_frame_pair_mcq
+  dominant_held_object_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: dominant_held_object_frame_weighted_mean
+  next_interaction_prediction:
+    run: false
+    use_custom_strategy: true
+    strategy: next_interaction_tail_option_guided
+  object_counting:
+    run: false
+    use_custom_strategy: false
+    strategy: direct_mcq
+  object_not_visible_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: visible_logprob_chunk_max_option_min
+  object_spatial_localization:
+    run: true
+    use_custom_strategy: true
+    # Options: question_timepoint_neighborhood_mcq | question_timepoint_point_coord_mcq
+    strategy: question_timepoint_point_coord_mcq
+    timepoint_neighbor_radius: 1
+    # 1 = single point, >1 = output a list of points and ensemble by coordinate median
+    point_output_count: 6
+
+output:
+  dir: output/Q6-6points-coord-R1

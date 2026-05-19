@@ -1,0 +1,56 @@
+# Industry / ENIGMA config: Q3
+# Q3 = next interaction prediction
+
+dataset: "ENIGMA"
+repo_root: null
+
+paths:
+  dataset_json: testset/egocross_testbed_imgs.json
+  data_root: testset
+
+model:
+  use_sft: false
+  path_base: ckpts/base_model
+  path_sft_local: ckpts/industry
+
+device: cuda:0
+
+inference:
+  max_frames: 3
+  effective_sampling_fps: 0.5
+  max_new_tokens: 32
+  dtype: auto
+  allow_remote_model: false
+
+question_types:
+  action_temporal_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: temporal_option_frame_pair_mcq
+  dominant_held_object_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: dominant_held_object_frame_weighted_mean
+  next_interaction_prediction:
+    run: true
+    use_custom_strategy: true
+    # Options: next_interaction_tail_option_guided | next_interaction_tail_pairwise | next_interaction_tail_video_mcq
+    strategy: next_interaction_tail_video_mcq
+    video_sample_fps: 1.0
+    video_max_pixels: null
+  object_counting:
+    run: false
+    use_custom_strategy: false
+    strategy: direct_mcq
+  object_not_visible_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: visible_logprob_chunk_max_option_min
+  object_spatial_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: question_timepoint_neighborhood_mcq
+    timepoint_neighbor_radius: 3
+
+output:
+  dir: output/Q3-video

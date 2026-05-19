@@ -1,0 +1,67 @@
+# Industry / ENIGMA config: Q4
+# Q4 = object counting
+
+dataset: "ENIGMA"
+repo_root: null
+
+paths:
+  dataset_json: testset/egocross_testbed_imgs.json
+  data_root: testset
+
+model:
+  use_sft: false
+  path_base: ckpts/base_model
+  path_sft_local: ckpts/industry
+
+device: cuda:1
+
+inference:
+  max_frames: 10
+  effective_sampling_fps: 0.5
+  max_new_tokens: 1024
+  dtype: auto
+  allow_remote_model: false
+
+question_types:
+  action_temporal_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: temporal_option_frame_pair_mcq
+  dominant_held_object_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: dominant_held_object_frame_weighted_mean
+  next_interaction_prediction:
+    run: false
+    use_custom_strategy: true
+    strategy: next_interaction_tail_option_guided
+  object_counting:
+    run: true
+    use_custom_strategy: true
+    # Options: direct_mcq | object_counting_option_guided | object_counting_labeled_bboxes
+    strategy: object_counting_labeled_bboxes
+    counting_object_labels:
+      - battery
+      - battery connector
+      - board
+      - button
+      - electric screwdriver
+      - oscilloscope
+      - oscilloscope component
+      - pliers
+      - power supply
+      - power supply cables
+      - screen
+      - screwdriver
+  object_not_visible_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: visible_logprob_chunk_max_option_min
+  object_spatial_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: question_timepoint_neighborhood_mcq
+    timepoint_neighbor_radius: 3
+
+output:
+  dir: output/Q4-labeled-bboxes-re

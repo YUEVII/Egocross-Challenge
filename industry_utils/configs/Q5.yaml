@@ -1,0 +1,54 @@
+# Industry / ENIGMA config: Q5
+# Q5 = object not visible identification
+
+dataset: "ENIGMA"
+repo_root: null
+
+paths:
+  dataset_json: testset/egocross_testbed_imgs.json
+  data_root: testset
+
+model:
+  use_sft: true
+  path_base: ckpts/base_model
+  path_sft_local: ckpts/industry
+
+device: cuda:1
+
+inference:
+  max_frames: 10
+  effective_sampling_fps: 0.5
+  max_new_tokens: 32
+  dtype: auto
+  allow_remote_model: false
+
+question_types:
+  action_temporal_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: temporal_option_frame_pair_mcq
+  dominant_held_object_identification:
+    run: false
+    use_custom_strategy: true
+    strategy: dominant_held_object_frame_weighted_mean
+  next_interaction_prediction:
+    run: false
+    use_custom_strategy: true
+    strategy: next_interaction_tail_option_guided
+  object_counting:
+    run: false
+    use_custom_strategy: false
+    strategy: direct_mcq
+  object_not_visible_identification:
+    run: true
+    use_custom_strategy: true
+    # Options: visible_logprob_chunk_max_option_min | not_visible_mcq_logprob | not_visible_any_frame_option_guided | not_visible_pairwise
+    strategy: not_visible_mcq_logprob
+  object_spatial_localization:
+    run: false
+    use_custom_strategy: true
+    strategy: question_timepoint_neighborhood_mcq
+    timepoint_neighbor_radius: 3
+
+output:
+  dir: output/Q5-not-visible-logprob-3
