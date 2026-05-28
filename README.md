@@ -141,3 +141,34 @@ python run_CholecTrack20.py --model-path ckpts/base_model
 
 Each runner reads the official test set from `testset/egocross_testbed_imgs.json`
 and writes or updates `submission.json` by default.
+
+## Citation
+
+If you find our inference strategy useful or inspiring for your research,
+please consider citing:
+
+```bibtex
+@misc{wu2026animationbenchvideomodelsgood,
+      title={AnimationBench: Are Video Models Good at Character-Centric Animation?},
+      author={Leyi Wu and Pengjun Fang and Kai Sun and Yazhou Xing and Yinwei Wu and Songsong Wang and Ziqi Huang and Dan Zhou and Yingqing He and Ying-Cong Chen and Qifeng Chen},
+      year={2026},
+      eprint={2604.15299},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.15299},
+}
+```
+
+Please also cite the EgoCross benchmark:
+
+```bibtex
+@inproceedings{li2026egocross,
+      title={Egocross: Benchmarking multimodal large language models for cross-domain egocentric video question answering},
+      author={Li, Yanjun and Fu, Yuqian and Qian, Tianwen and Xu, Qi'Ao and Dai, Silong and Paudel, Danda Pani and Van Gool, Luc and Wang, Xiaoling},
+      booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+      volume={40},
+      number={8},
+      pages={6592--6600},
+      year={2026},
+}
+```
