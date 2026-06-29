@@ -148,14 +148,11 @@ If you find our inference strategy useful or inspiring for your research,
 please consider citing:
 
 ```bibtex
-@misc{wu2026animationbenchvideomodelsgood,
-      title={AnimationBench: Are Video Models Good at Character-Centric Animation?},
-      author={Leyi Wu and Pengjun Fang and Kai Sun and Yazhou Xing and Yinwei Wu and Songsong Wang and Ziqi Huang and Dan Zhou and Yingqing He and Ying-Cong Chen and Qifeng Chen},
-      year={2026},
-      eprint={2604.15299},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2604.15299},
+@article{wu2026right,
+  title={The Right Inference Strategy Is All You Need: Nearly Training-Free Domain-Wise Inference for EgoCross Challenge},
+  author={Wu, Leyi and Zhao, Yifan and Zhang, Jinjie and Li, Yinchuan and Chen, Ying-Cong},
+  journal={arXiv preprint arXiv:2606.00829},
+  year={2026}
 }
 ```
 
